@@ -1,0 +1,51 @@
+
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8">
+  <title>DealDriver MVP</title>
+  <style>
+    body { font-family: Arial, sans-serif; margin: 40px; }
+    input, button { padding: 8px; font-size: 1rem; margin: 4px 0; }
+    .result { margin-top: 20px; padding: 10px; border: 1px solid #ccc; }
+  </style>
+</head>
+<body>
+  <h1>🛒 DealDriver MVP</h1>
+  <p>Gib deine Einkaufsliste (kommagetrennt) und deine PLZ ein:</p>
+
+  <label for="list">Einkaufsliste:</label><br>
+  <input type="text" id="list" placeholder="z.B. Milch, Butter, Käse"><br>
+
+  <label for="location">PLZ:</label><br>
+  <input type="text" id="location" placeholder="z.B. 42651"><br>
+
+  <button onclick="simulateSearch()">🔍 Deals anzeigen</button>
+
+  <div id="output" class="result" style="display:none;"></div>
+
+  <script>
+    function simulateSearch() {
+      const list = document.getElementById('list').value;
+      const location = document.getElementById('location').value;
+      const output = document.getElementById('output');
+
+      const matched = [
+        { product: "Milch 1L", price: 0.89, market: "Aldi", address: "Kölner Str. 123, Solingen" },
+        { product: "Butter 250g", price: 1.39, market: "Rewe", address: "Birkenweiher 45, Solingen" },
+        { product: "Edamer Käse 400g", price: 2.49, market: "Kaufland", address: "Höhscheider Str. 221, Solingen" },
+        { product: "Cola 1,5L", price: 1.19, market: "Lidl", address: "Merscheider Str. 99, Solingen" }
+      ];
+
+      let html = `<h2>Gefundene Angebote für PLZ ${location}</h2><ul>`;
+      matched.forEach(item => {
+        html += `<li><strong>${item.product}</strong> – ${item.price.toFixed(2)}€ bei ${item.market} <br><small>${item.address}</small></li>`;
+      });
+      html += `</ul><a href="https://www.google.com/maps/dir/Kölner+Str.+123,+Solingen/Birkenweiher+45,+Solingen/Höhscheider+Str.+221,+Solingen/Merscheider+Str.+99,+Solingen" target="_blank">🗺️ Route auf Google Maps öffnen</a>`;
+
+      output.innerHTML = html;
+      output.style.display = 'block';
+    }
+  </script>
+</body>
+</html>
